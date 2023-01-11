@@ -1,0 +1,33 @@
+http:
+    port: ${PORT}
+
+cache:
+    host: ${CACHE_HOST}
+    port: ${CACHE_PORT}
+    password: ${CACHE_PASSWORD}
+    database: ${CACHE_DATABASE}
+
+database:
+    name: 'default'
+    type: ${DATABASE_TYPE}
+    host: ${DATABASE_HOST}
+    port: ${DATABASE_PORT}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    database: ${DATABASE_NAME}
+    entities: ["dist/**/*.entity.js"]
+    migrations: ['dist/migrations/mysql/*.js']
+    cli:
+      migrationsDir: 'src/migrations/mysql'
+    logging: false
+    bigNumberStrings: false
+    timezone: +00:00
+    synchronize: false
+jwt:
+    secret: ${JWT_SECRET}
+    expiration: ${JWT_EXP}
+    issuer: ${JWT_ISSUER}
+
+service:
+    blockchain_adapter: ${BLOCKCHAIN_ADAPTER}
+    auth: ${AUTH_SVC}

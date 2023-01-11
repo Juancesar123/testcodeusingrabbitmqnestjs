@@ -1,0 +1,7 @@
+http:
+    port: ${PORT}
+rabbitmq:
+    user: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+    host: ${RABBITMQ_HOST}
+    queuename: ${RABBITMQ_QUEUE_NAME}
