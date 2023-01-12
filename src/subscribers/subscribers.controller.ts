@@ -7,6 +7,7 @@ import {
   Payload,
   RmqContext,
 } from '@nestjs/microservices';
+import { MailService } from 'src/mail/mail.service';
 import CreateSubscriberDto from './dto/createSubscriber.dto';
 
 @Controller('subscribers')
@@ -14,6 +15,7 @@ import CreateSubscriberDto from './dto/createSubscriber.dto';
 export class SubscribersController {
   constructor(
     @Inject('SUBSCRIBERS_SERVICE') private subscribersService: ClientProxy,
+    private mailService: MailService,
   ) {}
   @Post()
   async createPost(@Body() subscriber: CreateSubscriberDto) {
@@ -30,14 +32,15 @@ export class SubscribersController {
     @Payload() subscriber: CreateSubscriberDto,
     @Ctx() context: RmqContext,
   ) {
+    const sendMail = await this.mailService.sendUserConfirmation('123');
+    console.log(sendMail);
     // const newSubscriber = await this.subscribersService.addSubscriber(
     //   subscriber,
     // );
 
     const channel = context.getChannelRef();
     const originalMsg = context.getMessage();
-    console.log(originalMsg);
-    console.log(channel.ack(originalMsg));
+    channel.ack(originalMsg);
     return subscriber;
   }
 }

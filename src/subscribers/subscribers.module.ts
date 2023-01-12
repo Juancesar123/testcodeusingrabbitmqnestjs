@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientProxyFactory, Transport } from '@nestjs/microservices';
+import { MailModule } from 'src/mail/mail.module';
+import { MailService } from 'src/mail/mail.service';
 import { SubscribersController } from './subscribers.controller';
 @Module({
-  imports: [ConfigModule],
+  imports: [ConfigModule, MailModule],
   controllers: [SubscribersController],
   providers: [
     {

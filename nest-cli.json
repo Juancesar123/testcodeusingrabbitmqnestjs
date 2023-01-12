@@ -3,6 +3,9 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "assets": [{ "include": "./config/*.yaml", "outDir": "./dist" }]
+    "assets": [
+      { "include": "./config/*.yaml", "outDir": "./dist" },
+      "mail/templates/**/*"
+    ]
   }
 }
