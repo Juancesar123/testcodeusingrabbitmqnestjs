@@ -3,7 +3,7 @@ import { Controller, UseInterceptors } from '@nestjs/common';
 import {
   ClientProxy,
   Ctx,
-  MessagePattern,
+  EventPattern,
   Payload,
   RmqContext,
 } from '@nestjs/microservices';
@@ -19,19 +19,15 @@ export class SubscribersController {
   ) {}
   @Post()
   async createPost(@Body() subscriber: CreateSubscriberDto) {
-    return this.subscribersService.send(
-      {
-        cmd: 'add-subscriber',
-      },
-      subscriber,
-    );
+    return this.subscribersService.emit('add-subscriber', subscriber);
   }
 
-  @MessagePattern({ cmd: 'add-subscriber' })
+  @EventPattern('add-subscriber')
   async addSubscriber(
     @Payload() subscriber: CreateSubscriberDto,
     @Ctx() context: RmqContext,
   ) {
+    // this.subscribersService.emit('add-subscriber', subscriber);
     const sendMail = await this.mailService.sendUserConfirmation('123');
     console.log(sendMail);
     // const newSubscriber = await this.subscribersService.addSubscriber(
